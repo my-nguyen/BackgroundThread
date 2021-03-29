@@ -20,6 +20,7 @@ class ExampleLooperThread: Thread() {
 
     private fun loop1() {
         // add a Looper to this background thread and create a message queue
+        // sequence: (1) Looper.prepare(); (2) handler = Handler(); (3) Looper.loop()
         Looper.prepare()
 
         // get the looper of the current thread
@@ -35,6 +36,7 @@ class ExampleLooperThread: Thread() {
     }
 
     private fun loop2() {
+        // sequence in HandlerThread.run(): (1) Looper.prepare(); onLooperPrepared(); (3) Looper.loop()
         Looper.prepare()
         handler = Handler()
         Looper.loop()
