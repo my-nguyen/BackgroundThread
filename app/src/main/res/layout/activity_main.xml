@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,5 +28,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stop"
+        app:backgroundTint="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/btn_task_A"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Task A"
+        app:backgroundTint="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/btn_task_B"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Task B"
         app:backgroundTint="@android:color/darker_gray" />
 </LinearLayout>
