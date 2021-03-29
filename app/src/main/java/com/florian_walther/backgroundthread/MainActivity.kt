@@ -1,9 +1,6 @@
 package com.florian_walther.backgroundthread
 
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
+import android.os.*
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.florian_walther.backgroundthread.ExampleHandler.Companion.TASK_A
@@ -70,14 +67,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // avoid memory leak by not maintaining a reference to the outer class (MainActivity)
+    class ExampleRunnable1: Runnable {
+        override fun run() {
+            Util.run(TAG, "Runnable1")
+        }
+    }
+
+    class ExampleRunnable2: Runnable {
+        override fun run() {
+            Util.run(TAG, "Runnable2")
+        }
+    }
+
     companion object {
         private const val TAG = "MainActivity"
     }
 
     lateinit var binding: ActivityMainBinding
     lateinit var mainHandler: Handler
+    lateinit var threadHandler: Handler
 
     private val looperThread = ExampleLooperThread()
+    private val handlerThread = HandlerThread("HandlerThread")
 
     @Volatile var threadStopped = false
 
@@ -87,6 +99,16 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // create1()
+        create2()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handlerThread.quit()
+    }
+
+    private fun create1() {
         // handler is created on the main thread so it will only run on the main thread
         mainHandler = Handler()
 
@@ -131,6 +153,29 @@ class MainActivity : AppCompatActivity() {
             val message = Message.obtain()
             message.what = TASK_B
             looperThread.handler.sendMessage(message)
+        }
+    }
+
+    private fun create2() {
+        handlerThread.start()
+        threadHandler = Handler(handlerThread.looper)
+
+        // work1()
+        work2()
+    }
+
+    private fun work1() {
+        binding.btnDoWork.setOnClickListener {
+            threadHandler.postDelayed(ExampleRunnable1(), 2000)
+            threadHandler.post(ExampleRunnable2())
+        }
+    }
+
+    private fun work2() {
+        binding.btnDoWork.setOnClickListener {
+            threadHandler.post(ExampleRunnable1())
+            threadHandler.post(ExampleRunnable1())
+            threadHandler.postAtFrontOfQueue(ExampleRunnable2())
         }
     }
 

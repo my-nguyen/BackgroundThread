@@ -4,14 +4,21 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 
-private const val TAG = "MyThread"
-
 class ExampleLooperThread: Thread() {
+
+    companion object {
+        const val TAG = "MyThread"
+    }
 
     lateinit var handler: Handler
     lateinit var looper: Looper
 
     override fun run() {
+        // loop1()
+        loop2()
+    }
+
+    private fun loop1() {
         // add a Looper to this background thread and create a message queue
         Looper.prepare()
 
@@ -24,6 +31,15 @@ class ExampleLooperThread: Thread() {
         // run1()
         run2()
 
+        Log.d(TAG, "end of run()")
+    }
+
+    private fun loop2() {
+        Looper.prepare()
+        handler = Handler()
+        Looper.loop()
+
+        Util.run(TAG)
         Log.d(TAG, "end of run()")
     }
 

@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"
+        android:visibility="gone"
         app:backgroundTint="@android:color/darker_gray" />
 
     <Button
@@ -28,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Stop"
+        android:visibility="gone"
         app:backgroundTint="@android:color/darker_gray" />
 
     <Button
@@ -35,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Task A"
+        android:visibility="gone"
         app:backgroundTint="@android:color/darker_gray" />
 
     <Button
@@ -42,5 +45,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Task B"
+        android:visibility="gone"
         app:backgroundTint="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/btn_do_work"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do Work"
+        app:backgroundTint="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/btn_remove_messages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove Messages"
+        app:backgroundTint="@android:color/darker_gray" />
+
 </LinearLayout>
